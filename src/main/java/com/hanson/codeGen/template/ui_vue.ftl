@@ -9,7 +9,7 @@
             	<!--下拉列表-->
 				<el-select v-model="listQuery.${field.name}" size="small" clearable placeholder="${field.describe}">
 					<el-option
-							v-for="item in select${field.name?cap_first}Array"
+							v-for="item in select${field.name?cap_first}Options"
 							:key="item.name"
 							:label="item.text"
 							:value="item.name">
@@ -99,7 +99,7 @@
                             <!--下拉列表-->
                             <el-form-item label="${field.describe}" prop="${field.name}">
                                 <el-select v-model="formData.${field.name}" class="filter-item">
-                                    <el-option v-for="item in select${field.name?cap_first}Array" :key="item.code" :label="item.text" :value="item.name" />
+                                    <el-option v-for="item in select${field.name?cap_first}Options" :key="item.code" :label="item.text" :value="item.name" />
                                 </el-select>
                             </el-form-item>
                         <#elseif field.type?contains("Date")>
@@ -138,7 +138,7 @@
             <#list fields as field>
             <#if field.type?contains("Enum")>
             <#-- 枚举类型则是下拉列表 -->
-				select${field.name?cap_first}Array: [],//下拉列表显示
+				select${field.name?cap_first}Options: [],//下拉列表显示
             </#if>
             </#list>
 				/*查询参数*/
@@ -320,7 +320,7 @@
 			select${field.name?cap_first}Array(){
 				let dictionaries = "${field.name}";
 				getEnums(dictionaries).then(response => {
-					this.select${field.name?cap_first}Array = response.data;
+					this.select${field.name?cap_first}Options = response.data;
 				})
 			},
 			</#if>
